@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/stardew-sacrifice-tracker/static/css/main.093c2d9e.css",
+    "main.js": "/stardew-sacrifice-tracker/static/js/main.3fabd0bc.js",
+    "index.html": "/stardew-sacrifice-tracker/index.html",
+    "main.093c2d9e.css.map": "/stardew-sacrifice-tracker/static/css/main.093c2d9e.css.map",
+    "main.3fabd0bc.js.map": "/stardew-sacrifice-tracker/static/js/main.3fabd0bc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.093c2d9e.css",
+    "static/js/main.3fabd0bc.js"
+  ]
+}
