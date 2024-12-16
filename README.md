@@ -1,5 +1,31 @@
 npx create-react-app . --template typescript --use-npm
 npm install react@18 react-dom@18
+npm install
+
+index的import必须有tsx后缀
+
+安装tailwindcss
+npx tailwindcss init -p
+
+
+推送到github page
+# 安装部署工具
+npm install gh-pages --save-dev
+
+# 修改 package.json
+# 在 json 根部添加：
+"homepage": "https://XingzhiY.github.io/stardew-sacrifice-tracker",
+
+# 在 "scripts" 中添加：
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build"
+
+# 部署
+npm run deploy
+
+
+
+
 
 
 
