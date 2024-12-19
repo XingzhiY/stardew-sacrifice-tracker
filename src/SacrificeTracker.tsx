@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { LucideCheckSquare, LucideSquare, LucideFilter } from 'lucide-react';
 
+
 // 定义更复杂的收集包结构
 interface CollectionCategory {
   name: string;
   subCategories: string[];
 }
-
+// 定义session类型
+type Season = '春季' | '夏季' | '秋季' | '冬季';
+// type Room = ;
+// type Bundle = 
 // 物品接口
 interface SacrificeItem {
   id: string;
   name: string;
-  season: 'spring' | 'summer' | 'fall' | 'winter' | 'all';//改成list
+  season: Season[];//改成list
   mainCollection: string;
   subCollection: string;
   obtainMethod: string;
@@ -37,20 +41,19 @@ const SacrificeTracker: React.FC = () => {
     {
       id: '1',
       name: '紫色花',
-      season: 'spring',
-      mainCollection: '农场',
+      season: ['春季', '夏季'], // 支持多个季节
+      mainCollection: '茶水间',
       subCollection: '春季作物',
-      obtainMethod: '在春季农场种植'
+      obtainMethod: '在春季和夏季的农场种植'
     },
     {
       id: '2',
       name: '蓝色鱼',
-      season: 'summer',
-      mainCollection: '建筑',
+      season: ['春季', '夏季'], // 支持多个季节
+      mainCollection: '地下室',
       subCollection: '鱼缸',
-      obtainMethod: '在夏季钓鱼'
-    },
-    // 更多示例物品
+      obtainMethod: '在春季和夏季钓鱼'
+    }
   ]);
 
   const [completedItems, setCompletedItems] = useState<string[]>(() => {
@@ -77,18 +80,34 @@ const SacrificeTracker: React.FC = () => {
 
   // 获得filter之后的所有物品
   const filteredItems = items.filter(item =>
-    (!selectedSeason || item.season === selectedSeason) &&//改成list
+    (!selectedSeason || item.season.includes(selectedSeason)) &&//改成list
     (!selectedMainCollection || item.mainCollection === selectedMainCollection) &&
     (!selectedSubCollection || item.subCollection === selectedSubCollection)
   );
 
   // 季节颜色映射
   const seasonColors = {
-    spring: 'bg-green-100',
-    summer: 'bg-yellow-100',
-    fall: 'bg-orange-100',
-    winter: 'bg-blue-100',
-    all: 'bg-purple-100'
+    春季: 'text-green-600',  // 深绿色，适合春季
+    夏季: 'text-yellow-600', // 深黄色，适合夏季
+    秋季: 'text-orange-600',   // 深橙色，适合秋季
+    冬季: 'text-blue-600',   // 深蓝色，适合冬季
+  };
+  
+  // // 季节颜色映射
+  // const seasonColors = {
+  //   spring: 'bg-green-100',
+  //   summer: 'bg-yellow-100',
+  //   fall: 'bg-orange-100',
+  //   winter: 'bg-blue-100',
+  //   all: 'bg-purple-100'
+  // };
+  const roomColors = {
+    "工艺室": "bg-orange-100", // 浅橙色
+    "茶水间": "bg-green-100",  // 浅绿色
+    "鱼缸": "bg-blue-100",    // 浅蓝色
+    "锅炉房": "bg-gray-200",  // 浅灰色
+    "布告栏": "bg-yellow-100", // 浅黄色
+    "地下室": "bg-brown-200", // 浅棕色
   };
 
   return (
@@ -108,8 +127,8 @@ const SacrificeTracker: React.FC = () => {
                 // selectedSeason === season
                 //   ? `${seasonColors[season]} text-black` // 动态使用季节颜色
                 //   : 'bg-gray-200'
-                selectedSeason === season 
-                  ? 'bg-blue-500 text-white' 
+                selectedSeason === season
+                  ? 'bg-blue-500 text-white'
                   : 'bg-gray-200'
                 }`}
               onClick={() => setSelectedSeason(
@@ -130,8 +149,8 @@ const SacrificeTracker: React.FC = () => {
             <div key={mainCat} className="relative">
               <button
                 className={`px-3 py-1 rounded text-sm ${selectedMainCollection === mainCat
-                    ? 'bg-green-500 text-white'
-                    : 'bg-gray-200'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-gray-200'
                   }`}
                 onClick={() => {
                   setSelectedMainCollection(
@@ -153,8 +172,8 @@ const SacrificeTracker: React.FC = () => {
               <button
                 key={subCat}
                 className={`px-2 py-1 rounded text-xs ${selectedSubCollection === subCat
-                    ? 'bg-blue-400 text-white'
-                    : 'bg-gray-200'
+                  ? 'bg-blue-400 text-white'
+                  : 'bg-gray-200'
                   }`}
                 onClick={() => setSelectedSubCollection(
                   selectedSubCollection === subCat ? null : subCat
@@ -174,18 +193,31 @@ const SacrificeTracker: React.FC = () => {
             key={item.id}
             className={`
               p-4 rounded shadow-md flex items-center justify-between 
-              ${seasonColors[item.season]}
+              ${roomColors[item.mainCollection]}
               ${completedItems.includes(item.id) ? 'opacity-50' : ''}
             `}
           >
+            {/* <div>
+              <h3 className="font-bold">{item.name}</h3>
+              <p className="text-sm text-gray-600">
+                季节: {item.season.map(season => seasonTranslations[season]).join('，')} |
+                收集包: {item.mainCollection} - {item.subCollection}
+              </p>
+              <p className="text-xs">{item.obtainMethod}</p>
+            </div> */}
             <div>
               <h3 className="font-bold">{item.name}</h3>
               <p className="text-sm text-gray-600">
-                季节: {item.season} |
+                季节: {item.season.map(season => (
+                  <span key={season} className={seasonColors[season]}>
+                    {season}
+                  </span>
+                )).reduce((prev, curr) => [prev, '，', curr])} |
                 收集包: {item.mainCollection} - {item.subCollection}
               </p>
               <p className="text-xs">{item.obtainMethod}</p>
             </div>
+
             <button
               onClick={() => toggleItemCompletion(item.id)}
               className="ml-4"
