@@ -11,7 +11,7 @@ interface CollectionCategory {
 interface SacrificeItem {
   id: string;
   name: string;
-  season: 'spring' | 'summer' | 'fall' | 'winter' | 'all';
+  season: 'spring' | 'summer' | 'fall' | 'winter' | 'all';//改成list
   mainCollection: string;
   subCollection: string;
   obtainMethod: string;
@@ -57,26 +57,27 @@ const SacrificeTracker: React.FC = () => {
     const saved = localStorage.getItem('completedSacrificeItems');
     return saved ? JSON.parse(saved) : [];
   });
+  // 给筛选项设置默认值和用来修改的钩子
+  const [selectedSeason, setSelectedSeason] = useState<string | null>(null);//改成list
+  const [selectedMainCollection, setSelectedMainCollection] = useState<string | null>(null);//改成list
+  const [selectedSubCollection, setSelectedSubCollection] = useState<string | null>(null);//改成list
 
-  const [selectedSeason, setSelectedSeason] = useState<string | null>(null);
-  const [selectedMainCollection, setSelectedMainCollection] = useState<string | null>(null);
-  const [selectedSubCollection, setSelectedSubCollection] = useState<string | null>(null);
-
+  // 在completedItems发生变化的时候保存到localstorage
   useEffect(() => {
     localStorage.setItem('completedSacrificeItems', JSON.stringify(completedItems));
   }, [completedItems]);
-
+  // 如果id在completedItems里面，就移除，不在就添加
   const toggleItemCompletion = (itemId: string) => {
-    setCompletedItems(prev => 
-      prev.includes(itemId) 
+    setCompletedItems(prev =>
+      prev.includes(itemId)
         ? prev.filter(id => id !== itemId)
         : [...prev, itemId]
     );
   };
 
-  // 复杂的过滤逻辑
-  const filteredItems = items.filter(item => 
-    (!selectedSeason || item.season === selectedSeason) &&
+  // 获得filter之后的所有物品
+  const filteredItems = items.filter(item =>
+    (!selectedSeason || item.season === selectedSeason) &&//改成list
     (!selectedMainCollection || item.mainCollection === selectedMainCollection) &&
     (!selectedSubCollection || item.subCollection === selectedSubCollection)
   );
@@ -84,7 +85,7 @@ const SacrificeTracker: React.FC = () => {
   // 季节颜色映射
   const seasonColors = {
     spring: 'bg-green-100',
-    summer: 'bg-yellow-100', 
+    summer: 'bg-yellow-100',
     fall: 'bg-orange-100',
     winter: 'bg-blue-100',
     all: 'bg-purple-100'
@@ -95,19 +96,22 @@ const SacrificeTracker: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4 flex items-center">
         <LucideFilter className="mr-2" /> 星露谷物语 - 献祭物品追踪
       </h1>
-      
+
       {/* 季节筛选 */}
       <div className="mb-4">
         <h2 className="font-semibold mb-2">按季节筛选</h2>
         <div className="flex space-x-2">
           {Object.keys(seasonColors).map(season => (
-            <button 
+            <button
               key={season}
               className={`px-3 py-1 rounded text-sm ${
+                // selectedSeason === season
+                //   ? `${seasonColors[season]} text-black` // 动态使用季节颜色
+                //   : 'bg-gray-200'
                 selectedSeason === season 
                   ? 'bg-blue-500 text-white' 
                   : 'bg-gray-200'
-              }`}
+                }`}
               onClick={() => setSelectedSeason(
                 selectedSeason === season ? null : season
               )}
@@ -124,12 +128,11 @@ const SacrificeTracker: React.FC = () => {
         <div className="flex space-x-2">
           {Object.keys(collectionCategories).map(mainCat => (
             <div key={mainCat} className="relative">
-              <button 
-                className={`px-3 py-1 rounded text-sm ${
-                  selectedMainCollection === mainCat 
-                    ? 'bg-green-500 text-white' 
+              <button
+                className={`px-3 py-1 rounded text-sm ${selectedMainCollection === mainCat
+                    ? 'bg-green-500 text-white'
                     : 'bg-gray-200'
-                }`}
+                  }`}
                 onClick={() => {
                   setSelectedMainCollection(
                     selectedMainCollection === mainCat ? null : mainCat
@@ -142,18 +145,17 @@ const SacrificeTracker: React.FC = () => {
             </div>
           ))}
         </div>
-        
+
         {/* 子分类筛选 */}
         {selectedMainCollection && (
           <div className="mt-2 flex space-x-2">
             {collectionCategories[selectedMainCollection].subCategories.map(subCat => (
-              <button 
+              <button
                 key={subCat}
-                className={`px-2 py-1 rounded text-xs ${
-                  selectedSubCollection === subCat 
-                    ? 'bg-blue-400 text-white' 
+                className={`px-2 py-1 rounded text-xs ${selectedSubCollection === subCat
+                    ? 'bg-blue-400 text-white'
                     : 'bg-gray-200'
-                }`}
+                  }`}
                 onClick={() => setSelectedSubCollection(
                   selectedSubCollection === subCat ? null : subCat
                 )}
@@ -168,8 +170,8 @@ const SacrificeTracker: React.FC = () => {
       {/* 物品列表 */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredItems.map(item => (
-          <div 
-            key={item.id} 
+          <div
+            key={item.id}
             className={`
               p-4 rounded shadow-md flex items-center justify-between 
               ${seasonColors[item.season]}
@@ -179,12 +181,12 @@ const SacrificeTracker: React.FC = () => {
             <div>
               <h3 className="font-bold">{item.name}</h3>
               <p className="text-sm text-gray-600">
-                季节: {item.season} | 
+                季节: {item.season} |
                 收集包: {item.mainCollection} - {item.subCollection}
               </p>
               <p className="text-xs">{item.obtainMethod}</p>
             </div>
-            <button 
+            <button
               onClick={() => toggleItemCompletion(item.id)}
               className="ml-4"
             >
@@ -200,8 +202,8 @@ const SacrificeTracker: React.FC = () => {
 
       {/* 统计信息 */}
       <div className="mt-4 text-sm text-gray-600">
-        总物品: {items.length} | 
-        已完成: {completedItems.length} | 
+        总物品: {items.length} |
+        已完成: {completedItems.length} |
         完成率: {((completedItems.length / items.length) * 100).toFixed(2)}%
       </div>
     </div>
