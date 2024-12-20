@@ -1,5 +1,3 @@
-# 部署
-npm run deploy
 # 项目部署地址
 https://XingzhiY.github.io/stardew-sacrifice-tracker
 
