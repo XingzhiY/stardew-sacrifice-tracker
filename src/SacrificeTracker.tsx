@@ -4,78 +4,46 @@ import { LucideCheckSquare, LucideSquare, LucideFilter, LucideEye, LucideEyeOff 
 type Season = '春季' | '夏季' | '秋季' | '冬季';
 const rooms = ['工艺室', '茶水间', '鱼缸', '锅炉房', '布告栏', '地下室'] as const;
 type Room = typeof rooms[number];
-const bundles = [
-  '春季觅食',
-  '夏季觅食',
-  '秋季觅食',
-  '冬季觅食',
-  '建筑',
-  '异域情调',
-  '春季作物',
-  '夏季作物',
-  '秋季作物',
-  '品质作物',
-  '动物制品',
-  '工匠物品',
-  '河鱼',
-  '湖鱼',
-  '海鱼',
-  '夜间垂钓',
-  '蟹笼',
-  '特色鱼类',
-  '铁匠',
-  '地质学家',
-  '冒险者',
-  '大厨',
-  '染料',
-  '地质研究',
-  '饲料',
-  '魔法师',
-  '2500',
-  '5000',
-  '10000',
-  '25000',
-] as const;
-type Bundle = typeof bundles[number];
 
-const bundleRequirements: Record<Bundle, number> = {
-  // 工艺室
-  '春季觅食': 4,
-  '夏季觅食': 3,
-  '秋季觅食': 4,
-  '冬季觅食': 4,
-  '建筑': 2,
-  '异域情调': 5,
-  // 茶水间
-  '春季作物': 4,
-  '夏季作物': 3,
-  '秋季作物': 4,
-  '品质作物': 3,
-  '动物制品': 5,
-  '工匠物品': 4,
-  // 鱼缸
-  '河鱼': 4,
-  '湖鱼': 4,
-  '海鱼': 4,
-  '夜间垂钓': 3,
-  '蟹笼': 5,
-  '特色鱼类': 4,
-  // 锅炉房
-  '铁匠': 3,
-  '地质学家': 4,
-  '冒险者': 2,
-  // 布告栏
-  '大厨': 3,
-  '染料': 4,
-  '地质研究': 4,
-  '饲料': 3,
-  '魔法师': 4,
-  // 地下室
-  '2500': 1,
-  '5000': 1,
-  '10000': 1,
-  '25000': 1,
-};
+interface BundleInfo {
+  required: number;
+}
+
+const bundleData = {
+  春季觅食: { required: 4 },
+  夏季觅食: { required: 3 },
+  秋季觅食: { required: 4 },
+  冬季觅食: { required: 4 },
+  建筑: { required: 2 },
+  异域情调: { required: 5 },
+  春季作物: { required: 4 },
+  夏季作物: { required: 3 },
+  秋季作物: { required: 4 },
+  品质作物: { required: 3 },
+  动物制品: { required: 5 },
+  工匠物品: { required: 4 },
+  河鱼: { required: 4 },
+  湖鱼: { required: 4 },
+  海鱼: { required: 4 },
+  夜间垂钓: { required: 3 },
+  蟹笼: { required: 5 },
+  特色鱼类: { required: 4 },
+  铁匠: { required: 3 },
+  地质学家: { required: 4 },
+  冒险者: { required: 2 },
+  大厨: { required: 3 },
+  染料: { required: 4 },
+  地质研究: { required: 4 },
+  饲料: { required: 3 },
+  魔法师: { required: 4 },
+  '2500': { required: 1 },
+  '5000': { required: 1 },
+  '10000': { required: 1 },
+  '25000': { required: 1 },
+} as const;
+
+type Bundle = keyof typeof bundleData;
+
 const communityCenterData: Record<Room, Bundle[]> = {
   工艺室: ['春季觅食', '夏季觅食', '秋季觅食', '冬季觅食', '建筑', '异域情调'],
   茶水间: ['春季作物', '夏季作物', '秋季作物', '品质作物', '动物制品', '工匠物品'],
@@ -151,7 +119,7 @@ const SacrificeTracker: React.FC = () => {
   const [selectedBundle, setSelectedBundle] = useState<Bundle | null>(null);
   const [showCompleted, setShowCompleted] = useState(true);
 
-  // 新增：计算bundle的完成数量
+  // 计算bundle的完成数量
   const getBundleCompletion = (bundle: Bundle) => {
     const bundleItems = items.filter(item => item.bundle === bundle);
     const completedBundleItems = bundleItems.filter(item =>
@@ -159,12 +127,11 @@ const SacrificeTracker: React.FC = () => {
     );
     return {
       completed: completedBundleItems.length,
-      total: bundleRequirements[bundle]
-      // total: Math.min(bundleRequirements[bundle], bundleItems.length)
+      total: bundleData[bundle].required
     };
   };
 
-  // 新增：计算room的完成数量
+  // 计算room的完成数量
   const getRoomCompletion = (room: Room) => {
     const roomBundles = communityCenterData[room];
     let totalCompleted = 0;
@@ -172,7 +139,7 @@ const SacrificeTracker: React.FC = () => {
 
     roomBundles.forEach(bundle => {
       const { completed, total } = getBundleCompletion(bundle);
-      totalCompleted += Math.min(completed,total);
+      totalCompleted += Math.min(completed, total);
       totalRequired += total;
     });
 
@@ -185,13 +152,13 @@ const SacrificeTracker: React.FC = () => {
     let changed = false;
 
     // 检查每个bundle
-    bundles.forEach(bundle => {
+    Object.keys(bundleData).forEach(bundle => {
       const bundleItems = items.filter(item => item.bundle === bundle);
       const completedBundleItems = bundleItems.filter(item =>
         newCompletedItems.includes(item.name)
       );
 
-      if (completedBundleItems.length >= bundleRequirements[bundle]) {
+      if (completedBundleItems.length >= bundleData[bundle as Bundle].required) {
         // 自动完成这个bundle的所有物品
         bundleItems.forEach(item => {
           if (!finalCompletedItems.includes(item.name)) {
@@ -207,8 +174,6 @@ const SacrificeTracker: React.FC = () => {
     }
     return newCompletedItems;
   };
-
-
 
   useEffect(() => {
     localStorage.setItem('completedSacrificeItems', JSON.stringify(completedItems));
