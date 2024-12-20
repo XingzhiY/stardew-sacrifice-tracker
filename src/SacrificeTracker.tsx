@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LucideCheckSquare, LucideSquare, LucideFilter, LucideEye, LucideEyeOff } from 'lucide-react';
 
-type Season = '春季' | '夏季' | '秋季' | '冬季';
+type Season = '春季' | '夏季' | '秋季' | '冬季' | '全年';
 const rooms = ['工艺室', '茶水间', '鱼缸', '矿井', '布告栏', '金库'] as const;
 type Room = typeof rooms[number];
 
@@ -176,77 +176,77 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '木材',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
       obtainMethod: '使用斧头砍伐树木获得',
     },
     {
       name: '石头',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
       obtainMethod: '使用镐敲碎石头获得',
     },
     {
       name: '硬木',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
       obtainMethod: '使用升级后的斧头砍伐大树桩或大圆木获得',
     },
     {
       name: '椰子',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在沙漠地区采集',
     },
     {
       name: '仙人掌果',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在沙漠地区采集',
     },
     {
       name: '山洞萝卜',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在矿洞中采集或击碎箱子获得',
     },
     {
       name: '红蘑菇',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在矿洞中采集，或在夏季和秋季于秘密森林采集',
     },
     {
       name: '紫蘑菇',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在矿洞中采集，或在农场的蘑菇洞中获得',
     },
     {
       name: '枫糖浆',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在枫树上安装树液采集器获得',
     },
     {
       name: '橡树树脂',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在橡树上安装树液采集器获得',
     },
     {
       name: '松焦油',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '工艺室',
       bundle: '异域情调觅食',
       obtainMethod: '在松树上安装树液采集器获得',
@@ -375,35 +375,35 @@ const SacrificeTracker: React.FC = () => {
     // 鱼缸（蟹笼）
     {
       name: '龙虾',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '蟹笼',
       obtainMethod: '使用蟹笼放置在水体中捕捉',
     },
     {
       name: '小龙虾',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '蟹笼',
       obtainMethod: '使用蟹笼放置在水体中捕捉',
     },
     {
       name: '螃蟹',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '蟹笼',
       obtainMethod: '使用蟹笼放置在水体中捕捉',
     },
     {
       name: '鸟蛤',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '蟹笼',
       obtainMethod: '使用蟹笼放置在水体中捕捉',
     },
     {
       name: '蚌',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '蟹笼',
       obtainMethod: '使用蟹笼放置在水体中捕捉',
@@ -411,7 +411,7 @@ const SacrificeTracker: React.FC = () => {
     // 布告栏（染料）
     {
       name: '红蘑菇',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '染料',
       obtainMethod: '在矿洞中采集，或在秘密森林中找到',
@@ -425,14 +425,14 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '鸭毛',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '染料',
       obtainMethod: '养鸭并收集鸭毛',
     },
     {
       name: '海蓝宝石',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '染料',
       obtainMethod: '在矿洞中采集',
@@ -447,7 +447,7 @@ const SacrificeTracker: React.FC = () => {
     // 布告栏（大厨收集包）
     {
       name: '枫糖浆',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '大厨',
       obtainMethod: '在枫树上安装树液采集器获得',
@@ -461,7 +461,7 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '松露',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '大厨',
       obtainMethod: '饲养猪并在户外找到松露',
@@ -475,14 +475,14 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '生鱼寿司',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '大厨',
       obtainMethod: '制作：使用厨房，原料为任意鱼、海草、大米',
     },
     {
       name: '煎蛋',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '大厨',
       obtainMethod: '制作：使用厨房，原料为任意蛋',
@@ -497,7 +497,7 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '干草',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '饲料',
       obtainMethod: '使用镰刀割草后自动存入料仓，或从玛妮的牧场购买',
@@ -512,21 +512,21 @@ const SacrificeTracker: React.FC = () => {
     // 布告栏（魔法师收集包）
     {
       name: '橡树树脂',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '魔法师',
       obtainMethod: '在橡树上安装树液采集器获得',
     },
     {
       name: '果酒',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '魔法师',
       obtainMethod: '在酒桶中使用任意水果酿造获得',
     },
     {
       name: '兔子的脚',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '布告栏',
       bundle: '魔法师',
       obtainMethod: '饲养兔子并随机获得',
@@ -570,7 +570,7 @@ const SacrificeTracker: React.FC = () => {
     // 鱼缸（湖鱼收集包）
     {
       name: '大嘴鲈鱼',
-      season: ['春季', '夏季', '秋季', '冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '湖鱼',
       obtainMethod: '在山地湖泊或秘密森林中钓鱼',
@@ -599,7 +599,7 @@ const SacrificeTracker: React.FC = () => {
     // 鱼缸（夜间垂钓）
     {
       name: '大眼鱼',
-      season: ['春季', '夏季', '秋季', '冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '夜间垂钓',
       obtainMethod: '在河流或山地湖泊中钓鱼，夜晚限定',
@@ -628,21 +628,21 @@ const SacrificeTracker: React.FC = () => {
     },
     {
       name: '鬼鱼',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '特色鱼类',
       obtainMethod: '在矿井100层后钓鱼',
     },
     {
       name: '沙鱼',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '特色鱼类',
       obtainMethod: '在沙漠钓鱼',
     },
     {
       name: '木跃鱼',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '鱼缸',
       bundle: '特色鱼类',
       obtainMethod: '在秘密森林钓鱼',
@@ -650,21 +650,21 @@ const SacrificeTracker: React.FC = () => {
     // 矿井（铁匠收集包）
     {
       name: '铜锭',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '铁匠',
       obtainMethod: '通过熔炉将5个铜矿石和1个煤炭熔炼获得',
     },
     {
       name: '铁锭',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '铁匠',
       obtainMethod: '通过熔炉将5个铁矿石和1个煤炭熔炼获得',
     },
     {
       name: '金锭',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '铁匠',
       obtainMethod: '通过熔炉将5个金矿石和1个煤炭熔炼获得',
@@ -672,28 +672,28 @@ const SacrificeTracker: React.FC = () => {
     // 矿井（地质学家收集包）
     {
       name: '石英',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '地质学家',
       obtainMethod: '在矿洞中采集，或随机从岩石中获得',
     },
     {
       name: '地晶',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '地质学家',
       obtainMethod: '在矿洞中采集，或在裂隙岩石中获得',
     },
     {
       name: '泪晶',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '地质学家',
       obtainMethod: '在矿洞中采集，或击败幽灵掉落',
     },
     {
       name: '火水晶',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '地质学家',
       obtainMethod: '在矿洞第80层之后采集',
@@ -701,28 +701,28 @@ const SacrificeTracker: React.FC = () => {
     // 矿井（冒险者收集包）
     {
       name: '史莱姆泥',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
       obtainMethod: '击败史莱姆获得（需要99个）',
     },
     {
       name: '蝙蝠翅膀',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
       obtainMethod: '击败矿洞中的蝙蝠获得（需要10个）',
     },
     {
       name: '太阳精华',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
       obtainMethod: '击败矿洞中的发光生物或幽灵获得',
     },
     {
       name: '虚空精华',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
       obtainMethod: '击败矿洞中的暗影怪物获得',
@@ -730,28 +730,28 @@ const SacrificeTracker: React.FC = () => {
     // 金库（资金捐赠收集包）
     {
       name: '2500金捐款',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '金库',
       bundle: '2500',
       obtainMethod: '支付2500金币',
     },
     {
       name: '5000金捐款',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '金库',
       bundle: '5000',
       obtainMethod: '支付5000金币',
     },
     {
       name: '10000金捐款',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '金库',
       bundle: '10000',
       obtainMethod: '支付10000金币',
     },
     {
       name: '25000金捐款',
-      season: ['春季','夏季','秋季','冬季'],
+      season: ['全年'],
       room: '金库',
       bundle: '25000',
       obtainMethod: '支付25000金币',
@@ -875,42 +875,42 @@ const SacrificeTracker: React.FC = () => {
   // 茶水间（动物制品收集包）
   {
     name: '大壶牛奶',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养奶牛并挤奶获得',
   },
   {
     name: '棕色大鸡蛋',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养鸡并收集棕色大鸡蛋',
   },
   {
     name: '大鸡蛋',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养鸡并收集白色大鸡蛋',
   },
   {
     name: '大瓶羊奶',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养山羊并挤奶获得',
   },
   {
     name: '动物毛',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养绵羊或兔子并随机掉落',
   },
   {
     name: '鸭蛋',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '动物制品收集包',
     obtainMethod: '饲养鸭并收集鸭蛋',
@@ -918,28 +918,28 @@ const SacrificeTracker: React.FC = () => {
   // 茶水间（工匠物品收集包）
   {
     name: '松露油',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '工匠物品收集包',
     obtainMethod: '使用产油机加工松露获得',
   },
   {
     name: '布料',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '工匠物品收集包',
     obtainMethod: '使用纺织机将羊毛制成，或偶尔在垃圾箱中找到',
   },
   {
     name: '山羊奶酪',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '工匠物品收集包',
     obtainMethod: '将山羊奶放入压酪机制作获得',
   },
   {
     name: '奶酪',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '工匠物品收集包',
     obtainMethod: '将牛奶放入压酪机制作获得',
@@ -953,7 +953,7 @@ const SacrificeTracker: React.FC = () => {
   },
   {
     name: '果冻',
-    season: ['春季','夏季','秋季','冬季'],
+    season: ['全年'],
     room: '茶水间',
     bundle: '工匠物品收集包',
     obtainMethod: '在果酱罐中加工任意水果或浆果获得',
@@ -1069,6 +1069,7 @@ const SacrificeTracker: React.FC = () => {
     夏季: 'text-yellow-600',
     秋季: 'text-orange-600',
     冬季: 'text-blue-600',
+    全年: 'text-grey-600',
   };
 
   const roomColors = {
