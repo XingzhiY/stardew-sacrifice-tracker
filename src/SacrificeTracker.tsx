@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LucideCheckSquare, LucideSquare, LucideFilter, LucideEye, LucideEyeOff } from 'lucide-react';
 import { sacrificeItems } from './data/sacrificeItems.ts';
-
+import { Helmet } from 'react-helmet'; // ← 新增：引入 react-helmet
 export type Season = '春季' | '夏季' | '秋季' | '冬季' | '全年';
 export const rooms = ['工艺室', '茶水间', '鱼缸', '矿井', '布告栏', '金库', '电影院'] as const;
 export type Room = typeof rooms[number];
@@ -209,6 +209,11 @@ const SacrificeTracker: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>星露谷物语社区中心献祭收集追踪 | 季节性物品筛选与记录</title>
+        <meta name="description" content="一个帮助玩家追踪《星露谷物语》社区中心献祭收集进度的网页工具，提供物品记录、季节筛选和进度统计。" />
+        <meta name="keywords" content="星露谷物语,社区中心,献祭,收集包,管理,在线,大全,季节性物品,收集进度,攻略,筛选" />
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4 flex items-center">
         <LucideFilter className="mr-2" /> 星露谷物语 - 献祭物品追踪
       </h1>
