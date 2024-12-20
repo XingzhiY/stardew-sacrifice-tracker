@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LucideCheckSquare, LucideSquare, LucideFilter, LucideEye, LucideEyeOff } from 'lucide-react';
 
 type Season = '春季' | '夏季' | '秋季' | '冬季' | '全年';
-const rooms = ['工艺室', '茶水间', '鱼缸', '矿井', '布告栏', '金库'] as const;
+const rooms = ['工艺室', '茶水间', '鱼缸', '矿井', '布告栏', '金库', '电影院'] as const;
 type Room = typeof rooms[number];
 
 interface BundleInfo {
@@ -40,6 +40,7 @@ const bundleData = {
   '5000': { required: 1 },
   '10000': { required: 1 },
   '25000': { required: 1 },
+  遗失: { required: 5 },
 } as const;
 
 type Bundle = keyof typeof bundleData;
@@ -51,6 +52,7 @@ const communityCenterData: Record<Room, Bundle[]> = {
   矿井: ['铁匠', '地质学家', '冒险者'],
   布告栏: ['大厨', '染料', '地质研究', '饲料', '魔法师'],
   金库: ['2500', '5000', '10000', '25000'],
+  电影院: ['遗失'],
 };
 
 interface SacrificeItem {
@@ -180,28 +182,28 @@ const SacrificeTracker: React.FC = () => {
     },
     // 工艺式建筑收集包
     {
-      name: '木材-1',
-      season: ['全年'],
-      room: '工艺室',
-      bundle: '建筑',
-      obtainMethod: '使用斧头砍伐树木获得',
-    },    
-    {
-      name: '木材-2',
+      name: '木材99-1',
       season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
       obtainMethod: '使用斧头砍伐树木获得',
     },
     {
-      name: '石头',
+      name: '木材99-2',
+      season: ['全年'],
+      room: '工艺室',
+      bundle: '建筑',
+      obtainMethod: '使用斧头砍伐树木获得',
+    },
+    {
+      name: '石头99',
       season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
       obtainMethod: '使用镐敲碎石头获得',
     },
     {
-      name: '硬木',
+      name: '硬木10',
       season: ['全年'],
       room: '工艺室',
       bundle: '建筑',
@@ -360,28 +362,28 @@ const SacrificeTracker: React.FC = () => {
     },
     // 茶水间，品质作物
     {
-      name: '金星品质防风草',
+      name: '金星品质防风草5',
       season: ['春季'],
       room: '茶水间',
       bundle: '品质作物',
       obtainMethod: '种植防风草种子并施肥，春季收获',
     },
     {
-      name: '金星品质甜瓜',
+      name: '金星品质甜瓜5',
       season: ['夏季'],
       room: '茶水间',
       bundle: '品质作物',
       obtainMethod: '种植甜瓜种子并施肥，夏季收获',
     },
     {
-      name: '金星品质南瓜',
+      name: '金星品质南瓜5',
       season: ['秋季'],
       room: '茶水间',
       bundle: '品质作物',
       obtainMethod: '种植南瓜种子并施肥，秋季收获',
     },
     {
-      name: '金星品质玉米',
+      name: '金星品质玉米5',
       season: ['夏季', '秋季'],
       room: '茶水间',
       bundle: '品质作物',
@@ -728,7 +730,7 @@ const SacrificeTracker: React.FC = () => {
       obtainMethod: '在秘密森林钓鱼',
     },
     // 锅炉房==============================
-    
+
 
     // 矿井（铁匠收集包）
     {
@@ -783,14 +785,14 @@ const SacrificeTracker: React.FC = () => {
     },
     // 矿井（冒险者收集包）
     {
-      name: '史莱姆泥',
+      name: '史莱姆泥99',
       season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
       obtainMethod: '击败史莱姆获得（需要99个）',
     },
     {
-      name: '蝙蝠翅膀',
+      name: '蝙蝠翅膀10',
       season: ['全年'],
       room: '矿井',
       bundle: '冒险者',
@@ -871,7 +873,7 @@ const SacrificeTracker: React.FC = () => {
       room: '布告栏',
       bundle: '染料',
       obtainMethod: '在海滩觅食（用300块木头修复海滩左边的断桥后）',
-  },
+    },
     {
       name: '向日葵',
       season: ['夏季', '秋季'],
@@ -929,24 +931,24 @@ const SacrificeTracker: React.FC = () => {
       bundle: '地质研究',
       obtainMethod: '在矿洞40-79层挖掘或击败敌人获得',
     },
-    
+
     // 布告栏（饲料收集包）
     {
-      name: '小麦',
+      name: '小麦10',
       season: ['夏季', '秋季'],
       room: '布告栏',
       bundle: '饲料',
       obtainMethod: '种植小麦种子，夏季和秋季收获',
     },
     {
-      name: '干草',
+      name: '干草10',
       season: ['全年'],
       room: '布告栏',
       bundle: '饲料',
       obtainMethod: '使用镰刀割草后自动存入料仓，或从玛妮的牧场购买',
     },
     {
-      name: '苹果',
+      name: '苹果3',
       season: ['秋季'],
       room: '布告栏',
       bundle: '饲料',
@@ -1011,7 +1013,50 @@ const SacrificeTracker: React.FC = () => {
       bundle: '25000',
       obtainMethod: '支付25000金币',
     },
-    
+  // 电影院（遗失的收集包）====================================================
+  {
+    name: '银星或更高品质的果酒（任意）',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '将果酒在木桶中进行单次（14天）陈酿后获得',
+  },
+  {
+    name: '恐龙蛋黄酱',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '将恐龙蛋放入蛋黄酱机制作获得',
+  },
+  {
+    name: '五彩碎片',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '在矿洞深层、火山或开矿时随机获得',
+  },
+  {
+    name: '金星品质的上古水果（5个）',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '种植上古种子并施肥后收获金星品质的水果',
+  },
+  {
+    name: '金星或银星品质的虚空鲈鱼',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '在女巫的沼泽钓鱼获得',
+  },
+  {
+    name: '鱼籽酱',
+    season: ['全年'],
+    room: '电影院',
+    bundle: '遗失',
+    obtainMethod: '将任意鱼籽放入罐头瓶加工获得',
+  },
+
 
 
   ]);
@@ -1128,13 +1173,23 @@ const SacrificeTracker: React.FC = () => {
     全年: 'text-grey-600',
   };
 
+  // const roomColors = {
+  //   "工艺室": "bg-orange-100",
+  //   "茶水间": "bg-green-100",
+  //   "鱼缸": "bg-blue-100",
+  //   "矿井": "bg-gray-200",
+  //   "布告栏": "bg-yellow-100",
+  //   "金库": "bg-brown-200",
+  //   "电影院": "bg-red-100", 
+  // };
   const roomColors = {
     "工艺室": "bg-orange-100",
     "茶水间": "bg-green-100",
     "鱼缸": "bg-blue-100",
     "矿井": "bg-gray-200",
-    "布告栏": "bg-yellow-100",
-    "金库": "bg-brown-200",
+    "布告栏": "bg-red-100",
+    "金库": "bg-yellow-100",
+    // "电影院": "bg-brown-200", 
   };
 
   // 计算总完成率
