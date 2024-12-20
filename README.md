@@ -1,6 +1,11 @@
 # 项目部署地址
 https://XingzhiY.github.io/stardew-sacrifice-tracker
 
+# 说明
+本人沉迷星露谷物语48小时有余，苦于记不住献祭物品，一直在游戏里反复开关背包检查，怕错过季节，因此做了个网站方便记录和筛选。
+欢迎fork或者直接提pull request补全优化信息。
+
+
 # 项目初始化与部署指南
 
 本项目使用 React + TypeScript，并整合 Tailwind CSS，同时支持通过 GitHub Pages 进行部署。以下为详细步骤说明。
