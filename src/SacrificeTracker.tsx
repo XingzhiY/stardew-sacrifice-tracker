@@ -172,7 +172,7 @@ const SacrificeTracker: React.FC = () => {
 
     roomBundles.forEach(bundle => {
       const { completed, total } = getBundleCompletion(bundle);
-      totalCompleted += completed;
+      totalCompleted += Math.min(completed,total);
       totalRequired += total;
     });
 
