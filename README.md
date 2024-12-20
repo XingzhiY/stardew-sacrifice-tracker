@@ -1,29 +1,51 @@
-npx create-react-app . --template typescript --use-npm
-npm install react@18 react-dom@18
-npm install
-
-index的import必须有tsx后缀
-
-安装tailwindcss
-npx tailwindcss init -p
-
-
-推送到github page
-# 安装部署工具
-npm install gh-pages --save-dev
-
-# 修改 package.json
-# 在 json 根部添加：
-"homepage": "https://XingzhiY.github.io/stardew-sacrifice-tracker",
-
-# 在 "scripts" 中添加：
-"predeploy": "npm run build",
-"deploy": "gh-pages -d build"
-
 # 部署
 npm run deploy
+# 项目部署地址
+https://XingzhiY.github.io/stardew-sacrifice-tracker
 
+# 项目初始化与部署指南
 
+本项目使用 React + TypeScript，并整合 Tailwind CSS，同时支持通过 GitHub Pages 进行部署。以下为详细步骤说明。
+
+## 环境初始化
+
+1. 创建 React 应用（使用 TypeScript 模板，并使用 npm）：
+    ```bash
+    npx create-react-app . --template typescript --use-npm
+    npm install react@18 react-dom@18
+    npm install
+    ```
+
+   **注意**：`index` 文件的 `import` 路径中需加上 `.tsx` 后缀。
+
+2. 安装 Tailwind CSS：
+    ```bash
+    npm install -D tailwindcss postcss autoprefixer
+    npx tailwindcss init -p
+    ```
+
+## 部署到 GitHub Pages
+
+1. 安装部署工具 `gh-pages`：
+    ```bash
+    npm install gh-pages --save-dev
+    ```
+
+2. 在 `package.json` 中添加部署配置（将 `homepage` 替换为你的 GitHub 用户名和仓库名）：
+    ```json
+    {
+      "homepage": "https://XingzhiY.github.io/stardew-sacrifice-tracker",
+      "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+      }
+    }
+    ```
+
+3. 执行部署：
+    ```bash
+    npm run deploy
+    ```
 
 
 
