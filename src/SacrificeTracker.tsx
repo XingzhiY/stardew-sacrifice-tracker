@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { LucideCheckSquare, LucideSquare, LucideFilter, LucideEye, LucideEyeOff } from 'lucide-react';
 import { sacrificeItems } from './data/sacrificeItems.ts';
 import { Helmet } from 'react-helmet'; // ← 新增：引入 react-helmet
+
 export type Season = '春季' | '夏季' | '秋季' | '冬季' | '全年';
 export const rooms = ['工艺室', '茶水间', '鱼缸', '矿井', '布告栏', '金库', '电影院'] as const;
 export type Room = typeof rooms[number];
-
-
 
 export const bundleData = {
   春季觅食: { required: 4 },
@@ -62,7 +61,6 @@ export interface SacrificeItem {
   obtainMethod: string;
 }
 
-// 新增接口定义完成项的标识
 export interface CompletedItem {
   name: string;
   bundle: Bundle;
@@ -80,12 +78,10 @@ const SacrificeTracker: React.FC = () => {
   const [selectedBundle, setSelectedBundle] = useState<Bundle | null>(null);
   const [showCompleted, setShowCompleted] = useState(true);
 
-  // 检查物品是否完成的辅助函数
   const isItemCompleted = (name: string, bundle: Bundle) => {
     return completedItems.some(item => item.name === name && item.bundle === bundle);
   };
 
-  // 计算bundle的完成数量
   const getBundleCompletion = (bundle: Bundle) => {
     const bundleItems = items.filter(item => item.bundle === bundle);
     const completedBundleItems = bundleItems.filter(item =>
@@ -97,7 +93,6 @@ const SacrificeTracker: React.FC = () => {
     };
   };
 
-  // 计算room的完成数量
   const getRoomCompletion = (room: Room) => {
     const roomBundles = communityCenterData[room];
     let totalCompleted = 0;
@@ -112,12 +107,10 @@ const SacrificeTracker: React.FC = () => {
     return { completed: totalCompleted, total: totalRequired };
   };
 
-  // 检查并自动完成bundle
   const autoCompleteBundles = (newCompletedItems: CompletedItem[]) => {
     let finalCompletedItems = [...newCompletedItems];
     let changed = false;
 
-    // 检查每个bundle
     Object.keys(bundleData).forEach(bundle => {
       const bundleItems = items.filter(item => item.bundle === bundle);
       const completedBundleItems = bundleItems.filter(item =>
@@ -127,7 +120,6 @@ const SacrificeTracker: React.FC = () => {
       );
 
       if (completedBundleItems.length >= bundleData[bundle as Bundle].required) {
-        // 自动完成这个bundle的所有物品
         bundleItems.forEach(item => {
           if (!finalCompletedItems.some(completed =>
             completed.name === item.name && completed.bundle === item.bundle
@@ -158,14 +150,17 @@ const SacrificeTracker: React.FC = () => {
       ? completedItems.filter(item => !(item.name === name && item.bundle === bundle))
       : [...completedItems, { name, bundle }];
 
-    // 只在新增完成项目时执行自动完成
     if (!isCompleted) {
       const finalCompletedItems = autoCompleteBundles(newCompletedItems);
       setCompletedItems(finalCompletedItems);
     } else {
-      // 取消完成时直接更新状态
       setCompletedItems(newCompletedItems);
     }
+  };
+
+  // ← 新增函数：一键取消所有勾选
+  const resetAllCompleted = () => {
+    setCompletedItems([]);
   };
 
   const filteredItems = items.filter(item =>
@@ -183,15 +178,6 @@ const SacrificeTracker: React.FC = () => {
     全年: 'text-grey-600',
   };
 
-  // const roomColors = {
-  //   "工艺室": "bg-orange-100",
-  //   "茶水间": "bg-green-100",
-  //   "鱼缸": "bg-blue-100",
-  //   "矿井": "bg-gray-200",
-  //   "布告栏": "bg-yellow-100",
-  //   "金库": "bg-brown-200",
-  //   "电影院": "bg-red-100", 
-  // };
   const roomColors = {
     "工艺室": "bg-orange-100",
     "茶水间": "bg-green-100",
@@ -202,7 +188,6 @@ const SacrificeTracker: React.FC = () => {
     // "电影院": "bg-brown-200", 
   };
 
-  // 计算总完成率
   const totalCompletedItems = completedItems.length;
   const totalUniqueItems = items.length;
   const completionRate = ((totalCompletedItems / totalUniqueItems) * 100).toFixed(2);
@@ -218,7 +203,7 @@ const SacrificeTracker: React.FC = () => {
         <LucideFilter className="mr-2" /> 星露谷物语 - 献祭物品追踪
       </h1>
 
-      <div className="mb-4">
+      <div className="mb-4 flex space-x-2">
         <button
           className={`flex items-center space-x-2 px-4 py-2 rounded ${showCompleted ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
           onClick={() => setShowCompleted(!showCompleted)}
@@ -234,6 +219,15 @@ const SacrificeTracker: React.FC = () => {
               <span>隐藏已完成项目</span>
             </>
           )}
+        </button>
+
+        {/* 新增按钮：一键取消所有勾选 */}
+        <button
+          className="flex items-center space-x-2 px-4 py-2 rounded bg-red-500 text-white"
+          onClick={resetAllCompleted}
+        >
+          <LucideSquare className="w-4 h-4" />
+          <span>一键取消所有勾选</span>
         </button>
       </div>
 
@@ -310,7 +304,7 @@ const SacrificeTracker: React.FC = () => {
             key={`${item.name}-${item.bundle}`}
             className={`
               p-4 rounded shadow-md flex items-center justify-between 
-              ${roomColors[item.room]}
+              ${roomColors[item.room] ?? 'bg-gray-100'}
               ${isItemCompleted(item.name, item.bundle) ? 'opacity-50' : ''}
             `}
           >
