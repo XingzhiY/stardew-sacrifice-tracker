@@ -777,7 +777,7 @@ export const sacrificeItems: SacrificeItem[] = [
     },
     {
         name: '生鱼寿司',
-        season: ['全年'],
+        season: ['夏季','秋季'],
         room: '布告栏',
         bundle: '大厨',
         obtainMethod: '制作：使用厨房，原料为任意鱼、海草、大米',
