@@ -756,10 +756,10 @@ export const sacrificeItems: SacrificeItem[] = [
     },
     {
         name: '蕨菜',
-        season: ['春季'],
+        season: ['夏季'],
         room: '布告栏',
         bundle: '大厨',
-        obtainMethod: '在春季于秘密森林采集',
+        obtainMethod: '在夏季于秘密森林采集',
     },
     {
         name: '松露',
