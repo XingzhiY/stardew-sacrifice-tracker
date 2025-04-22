@@ -5,6 +5,7 @@
   "dependencies": {
     "cra-template-typescript": "1.2.0",
     "lucide-react": "^0.468.0",
+    "puppeteer": "^24.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
