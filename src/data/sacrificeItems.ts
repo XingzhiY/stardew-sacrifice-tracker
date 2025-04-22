@@ -474,10 +474,10 @@ export const sacrificeItems: SacrificeItem[] = [
     },
     {
         name: '虎纹鳟鱼',
-        season: ['夏季', '冬季'],
+        season: ['秋季', '冬季'],
         room: '鱼缸',
         bundle: '河鱼',
-        obtainMethod: '在河流或山地湖泊中钓鱼',
+        obtainMethod: '河流（小镇+森林），上午6:00至晚上7:00',
     },
     // 鱼缸（湖鱼收集包）
     {
